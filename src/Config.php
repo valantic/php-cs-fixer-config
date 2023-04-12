@@ -9,6 +9,7 @@ class Config extends \PhpCsFixer\Config
         return [
             '@PER' => true,
             'align_multiline_comment' => true,
+            'array_indentation' => true,
             'array_syntax' => true,
             'backtick_to_shell_exec' => true,
             'binary_operator_spaces' => true,
@@ -28,7 +29,7 @@ class Config extends \PhpCsFixer\Config
             ],
             'class_reference_name_casing' => true,
             'clean_namespace' => true,
-            'concat_space' => true,
+            'concat_space' => ['spacing' => 'one'],
             'curly_braces_position' => [
                 'allow_single_line_anonymous_functions' => true,
                 'allow_single_line_empty_anonymous_classes' => true,
@@ -58,6 +59,10 @@ class Config extends \PhpCsFixer\Config
             'magic_method_casing' => true,
             'method_argument_space' => [
                 'on_multiline' => 'ignore',
+            ],
+            'method_chaining_indentation' => true,
+            'multiline_whitespace_before_semicolons' => [
+                'strategy' => 'new_line_for_chained_calls',
             ],
             'native_function_casing' => true,
             'native_function_type_declaration_casing' => true,
@@ -132,7 +137,9 @@ class Config extends \PhpCsFixer\Config
             ],
             'php_unit_fqcn_annotation' => true,
             'php_unit_method_casing' => true,
-            'phpdoc_align' => true,
+            'phpdoc_align' => [
+                'align' => 'left',
+            ],
             'phpdoc_annotation_without_dot' => true,
             'phpdoc_indent' => true,
             'phpdoc_inline_tag_normalizer' => true,
@@ -167,6 +174,7 @@ class Config extends \PhpCsFixer\Config
             ],
             'phpdoc_var_without_name' => true,
             'protected_to_private' => true,
+            'return_assignment' => true,
             'semicolon_after_instruction' => true,
             'simple_to_complex_string_variable' => true,
             'single_class_element_per_statement' => true,
@@ -186,12 +194,18 @@ class Config extends \PhpCsFixer\Config
             'standardize_increment' => true,
             'standardize_not_equals' => true,
             'switch_continue_to_break' => true,
-            'trailing_comma_in_multiline' => true,
+            'trailing_comma_in_multiline' => [
+                'elements' => ['arguments', 'arrays', 'match', 'parameters'],
+            ],
             'trim_array_spaces' => true,
             'types_spaces' => true,
             'unary_operator_spaces' => true,
             'whitespace_after_comma_in_array' => true,
-            'yoda_style' => true,
+            'yoda_style' => [
+                'equal' => false,
+                'identical' => false,
+                'less_and_greater' => false,
+            ],
         ];
     }
 }
