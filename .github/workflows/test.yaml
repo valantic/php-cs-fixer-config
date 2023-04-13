@@ -4,13 +4,17 @@ on:
 
 jobs:
     test:
+        strategy:
+            matrix:
+                php: ['8.0', '8.2']
+                composer: ['--prefer-lowest', '']
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
             - uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.2'
+                  php-version: ${{ matrix.php }}
                   tools: composer:v2
-            - run: composer install
+            - run: composer update ${{ matrix.composer }}
             - run: composer validate
             - run: vendor/bin/php-cs-fixer fix --dry-run --diff
