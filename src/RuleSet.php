@@ -1,0 +1,173 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Valantic\PhpCsFixerConfig;
+
+class RuleSet
+{
+    /**
+     * @return array<string, bool|array<string, mixed>>
+     */
+    public static function getValanticRules(): array
+    {
+        $rules = [
+            '@PER-CS2.0' => true,
+            '@PER-CS2.0:risky' => true,
+            '@Symfony' => true,
+            '@Symfony:risky' => true,
+            'array_push' => false,
+            'native_constant_invocation' => false,
+            'native_function_invocation' => false,
+            'no_useless_return' => true,
+            'self_accessor' => false, // do not enable self_accessor as it breaks pimcore models relying on get_called_class()
+            'strict_comparison' => true,
+            'strict_param' => true,
+            'yoda_style' => [
+                'equal' => false,
+                'identical' => false,
+                'less_and_greater' => false,
+            ],
+        ];
+
+        return self::addPhpVersionSpecificRules($rules);
+    }
+
+    /**
+     * @return array<string, bool|array<string, mixed>>
+     */
+    public static function getValanticOpinionatedRules(): array
+    {
+        $opinionatedRules = [
+            'blank_line_before_statement' => [
+                'statements' => [
+                    'break',
+                    'case',
+                    'continue',
+                    'declare',
+                    'default',
+                    'do',
+                    'exit',
+                    'for',
+                    'foreach',
+                    'goto',
+                    'if',
+                    'include',
+                    'include_once',
+                    // 'phpdoc',
+                    'require',
+                    'require_once',
+                    'return',
+                    'switch',
+                    'throw',
+                    'try',
+                    'while',
+                    'yield',
+                    'yield_from',
+                ],
+            ],
+            'concat_space' => ['spacing' => 'one'],
+            // TODO: 'declare_strict_types' => '...',
+            // TODO: 'function_declaration' => ['closure_fn_spacing' => '...'],
+            // TODO: 'global_namespace_import' => '...',
+            'increment_style' => [
+                'style' => 'post',
+            ],
+            // TODO: 'method_argument_space' => ['attribute_placement' => '...', 'on_multiline' => '...'],
+            // TODO: 'method_chaining_indentation' => '...',
+            // TODO: 'multiline_comment_opening_closing' => '...',
+            'multiline_whitespace_before_semicolons' => true,
+            // TODO: 'no_superfluous_phpdoc_tags' => '...',
+            // TODO: 'no_unset_on_property' => '...',
+            // TODO: 'no_useless_else' => '...',
+            'ordered_class_elements' => [
+                'order' => [
+                    'use_trait',
+                    'constant_public',
+                    'constant_protected',
+                    'constant_private',
+                    'case',
+                    'property_public',
+                    'property_public_static',
+                    'property_protected',
+                    'property_protected_static',
+                    'property_private',
+                    'property_private_static',
+                    'construct',
+                    'destruct',
+                    'magic',
+                    'phpunit',
+                    'method_public',
+                    'method_public_abstract',
+                    'method_public_static',
+                    'method_protected',
+                    'method_protected_abstract',
+                    'method_protected_static',
+                    'method_private',
+                ],
+            ],
+            // TODO: 'phpdoc_align' => '...',
+            // TODO: 'phpdoc_order' => '...',
+            // TODO: 'phpdoc_tag_casing' => '...',
+            // TODO: 'phpdoc_to_comment' => '...',
+            // TODO: 'phpdoc_annotation_without_dot' => '...',
+            'phpdoc_summary' => false,
+            'ordered_imports' => [
+                'imports_order' => ['class', 'function', 'const'],
+                'sort_algorithm' => 'alpha',
+            ],
+            // TODO: 'regular_callable_call' => '...',
+            // TODO: 'return_assignment' => '...',
+            'single_line_throw' => false,
+            'trailing_comma_in_multiline' => [
+                'after_heredoc' => true,
+                'elements' => ['arguments', 'array_destructuring', 'arrays', 'match', 'parameters'],
+            ],
+        ];
+
+        // Extend the valantic rules with the opinionated rules
+        return [
+            ...self::getValanticRules(),
+            ...$opinionatedRules,
+        ];
+    }
+
+    private static function getCurrentPhpVersion(): string
+    {
+        return PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
+    }
+
+    /**
+     * @param array<string, bool|array<string, mixed>> $rules
+     *
+     * @return array<string, bool|array<string, mixed>>
+     */
+    private static function addPhpVersionSpecificRules(array $rules): array
+    {
+        $phpVersion = self::getCurrentPhpVersion();
+
+        $version = (int) str_replace('.', '', $phpVersion);
+
+        $availableRuleSets = \PhpCsFixer\RuleSet\RuleSets::getSetDefinitionNames();
+
+        for ($majorMinor = 80; $majorMinor <= 99; $majorMinor++) {
+            if ($majorMinor > $version) {
+                break;
+            }
+
+            $migrationSet = sprintf('@PHP%dMigration', $majorMinor);
+
+            if (in_array($migrationSet, $availableRuleSets, true)) {
+                $rules[$migrationSet] = true;
+            }
+
+            $riskyMigrationSet = sprintf('%s:risky', $migrationSet);
+
+            if (in_array($riskyMigrationSet, $availableRuleSets, true)) {
+                $rules[$riskyMigrationSet] = true;
+            }
+        }
+
+        return $rules;
+    }
+}

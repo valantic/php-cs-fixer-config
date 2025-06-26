@@ -3,12 +3,46 @@
     "description": "Provides a standard php-cs-fixer configuration used in projects built by Valantic.",
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "friendsofphp/php-cs-fixer": "^3.16"
+        "php": "^8.1",
+        "friendsofphp/php-cs-fixer": "^3.76"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.2.5",
+        "phpstan/phpstan": "^2.1.17",
+        "phpstan/phpstan-deprecation-rules": "^2.0.3",
+        "phpstan/phpstan-strict-rules": "^2.0.4",
+        "rector/rector": "^2.1",
+        "roave/security-advisories": "dev-latest",
+        "phpstan/extension-installer": "^1.4.3"
     },
     "autoload": {
         "psr-4": {
             "Valantic\\PhpCsFixerConfig\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Valantic\\PhpCsFixerConfig\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "cs-check": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix",
+        "phpstan": "phpstan analyse",
+        "test": "phpunit",
+        "rector": "rector process",
+        "rector-dry-run": "rector process --dry-run",
+        "check": [
+            "@cs-check",
+            "@phpstan",
+            "@rector-dry-run",
+            "@test"
+        ],
+        "post-update-cmd": "composer bump -D"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
         }
     }
 }

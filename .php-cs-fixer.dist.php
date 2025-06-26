@@ -1,11 +1,13 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->in('src')
-;
+require_once __DIR__ . '/vendor/autoload.php';
 
-$config = new Valantic\PhpCsFixerConfig\Config();
+use Valantic\PhpCsFixerConfig\ConfigFactory;
 
-return $config
-    ->setFinder($finder)
-;
+return ConfigFactory::createValanticOpinionatedConfig()
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__ . '/src')
+            ->in(__DIR__ . '/tests')
+    )
+    ->setRiskyAllowed(true);
