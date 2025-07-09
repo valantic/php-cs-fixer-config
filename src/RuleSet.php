@@ -11,7 +11,8 @@ class RuleSet
      */
     public static function getValanticRules(): array
     {
-        $rules = [
+        return [
+            ...self::addPhpVersionSpecificRules(),
             '@PER-CS2.0' => true,
             '@PER-CS2.0:risky' => true,
             '@Symfony' => true,
@@ -124,8 +125,6 @@ class RuleSet
                 'elements' => ['arguments', 'array_destructuring', 'arrays', 'match', 'parameters'],
             ],
         ];
-
-        return self::addPhpVersionSpecificRules($rules);
     }
 
     private static function getCurrentPhpVersion(): string
@@ -134,12 +133,11 @@ class RuleSet
     }
 
     /**
-     * @param array<string, bool|array<string, mixed>> $rules
-     *
      * @return array<string, bool|array<string, mixed>>
      */
-    private static function addPhpVersionSpecificRules(array $rules): array
+    private static function addPhpVersionSpecificRules(): array
     {
+        $rules = [];
         $phpVersion = self::getCurrentPhpVersion();
 
         $version = (int) str_replace('.', '', $phpVersion);

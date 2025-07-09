@@ -14,7 +14,10 @@ class ConfigFactory
     public static function createValanticConfig(array $additionalRules = []): Config
     {
         $config = new Config();
-        $config->setRules(array_merge(RuleSet::getValanticRules(), $additionalRules));
+        $config->setRules([
+            ...RuleSet::getValanticRules(),
+            ...$additionalRules,
+        ]);
 
         return $config;
     }
