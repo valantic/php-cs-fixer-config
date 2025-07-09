@@ -5,10 +5,12 @@ This package provides standard PHP-CS-Fixer configurations used in projects buil
 ## Installation
 
 ```bash
-composer require --dev valantic/php-cs-fixer-config
+composer require --dev valantic/php-cs-fixer-config friendsofphp/php-cs-fixer
 ```
 
 > **Note:** This package requires PHP 8.1 or higher.
+
+> **Note:** `friendsofphp/php-cs-fixer` is _not_ a dependency as to allow the use of e.g. [the Composer bin plugin](https://github.com/bamarni/composer-bin-plugin).
 
 ## Usage
 
