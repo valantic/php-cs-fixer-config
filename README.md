@@ -32,26 +32,6 @@ $config->setFinder(
 return $config;
 ```
 
-### Opinionated Configuration
-
-```php
-<?php
-
-require_once __DIR__ . '/vendor/autoload.php';
-
-use Valantic\PhpCsFixerConfig\ConfigFactory;
-
-$config = ConfigFactory::createValanticOpinionatedConfig();
-
-$config->setFinder(
-    PhpCsFixer\Finder::create()
-        ->in(__DIR__ . '/src')
-        ->in(__DIR__ . '/tests')
-);
-
-return $config;
-```
-
 ### Custom Configuration
 
 You can also customize the configuration by adding additional rules:
@@ -80,8 +60,6 @@ return $config;
 ## Available Rulesets
 
 - **valantic**: Basic ruleset that every project agrees with (automatically includes PHP version specific migration rules based on the current PHP version)
-- **valantic:risky**: Risky ruleset that includes additional rules marked as risky (automatically includes PHP version specific migration rules based on the current PHP version)
-- **valantic:opinionated**: Opinionated ruleset based on discussions
 
 ## Development
 

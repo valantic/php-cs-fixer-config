@@ -28,17 +28,6 @@ class RuleSet
                 'identical' => false,
                 'less_and_greater' => false,
             ],
-        ];
-
-        return self::addPhpVersionSpecificRules($rules);
-    }
-
-    /**
-     * @return array<string, bool|array<string, mixed>>
-     */
-    public static function getValanticOpinionatedRules(): array
-    {
-        $opinionatedRules = [
             'blank_line_before_statement' => [
                 'statements' => [
                     'break',
@@ -136,11 +125,7 @@ class RuleSet
             ],
         ];
 
-        // Extend the valantic rules with the opinionated rules
-        return [
-            ...self::getValanticRules(),
-            ...$opinionatedRules,
-        ];
+        return self::addPhpVersionSpecificRules($rules);
     }
 
     private static function getCurrentPhpVersion(): string
