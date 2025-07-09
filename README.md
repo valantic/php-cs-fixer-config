@@ -8,9 +8,11 @@ This package provides standard PHP-CS-Fixer configurations used in projects buil
 composer require --dev valantic/php-cs-fixer-config
 ```
 
+> **Note:** This package requires PHP 8.1 or higher.
+
 ## Usage
 
-Create a `.php-cs-fixer.php` file in your project root with one of the following configurations:
+Create a `.php-cs-fixer.php` or `.php-cs-fixer.dist.php` file in your project root with one of the following configurations:
 
 ### Basic Configuration
 
@@ -21,45 +23,19 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Valantic\PhpCsFixerConfig\ConfigFactory;
 
-$config = ConfigFactory::createValanticConfig();
-
-$config->setFinder(
-    PhpCsFixer\Finder::create()
-        ->in(__DIR__ . '/src')
-        ->in(__DIR__ . '/tests')
-);
-
-return $config;
+return ConfigFactory::createValanticConfig([
+        'declare_strict_types' => false,
+        // Add your custom rules here
+    ])
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->in(__DIR__ . '/src')
+            ->in(__DIR__ . '/tests')
+    )
+    // Enable risky rules (recommended as the ruleset includes risky rules)
+    ->setRiskyAllowed(true)
+;
 ```
-
-### Custom Configuration
-
-You can also customize the configuration by adding additional rules:
-
-```php
-<?php
-
-require_once __DIR__ . '/vendor/autoload.php';
-
-use Valantic\PhpCsFixerConfig\ConfigFactory;
-
-$config = ConfigFactory::createValanticConfig([
-    'array_syntax' => ['syntax' => 'short'],
-    // Add your custom rules here
-]);
-
-$config->setFinder(
-    PhpCsFixer\Finder::create()
-        ->in(__DIR__ . '/src')
-        ->in(__DIR__ . '/tests')
-);
-
-return $config;
-```
-
-## Available Rulesets
-
-- **valantic**: Basic ruleset that every project agrees with (automatically includes PHP version specific migration rules based on the current PHP version)
 
 ## Development
 
@@ -87,7 +63,3 @@ composer test
 # Run all checks (cs-check, phpstan, rector-dry-run, test)
 composer check
 ```
-
-## License
-
-MIT
