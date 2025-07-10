@@ -1,4 +1,11 @@
-# PHP-CS-Fixer Config for Valantic Projects
+# PHP-CS-Fixer Config for valantic Projects
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/valantic/php-cs-fixer-config.svg?style=flat-square)](https://packagist.org/packages/valantic/php-cs-fixer-config)
+[![PHPUnit](https://github.com/valantic/php-cs-fixer-config/actions/workflows/phpunit.yml/badge.svg)](https://github.com/valantic/php-cs-fixer-config/actions/workflows/phpunit.yml)
+[![Rector](https://github.com/valantic/php-cs-fixer-config/actions/workflows/rector.yml/badge.svg)](https://github.com/valantic/php-cs-fixer-config/actions/workflows/rector.yml)
+[![PHP-CS-Fixer](https://github.com/valantic/php-cs-fixer-config/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/valantic/php-cs-fixer-config/actions/workflows/php-cs-fixer.yml)
+[![PHPStan](https://github.com/valantic/php-cs-fixer-config/actions/workflows/phpstan.yml/badge.svg)](https://github.com/valantic/php-cs-fixer-config/actions/workflows/phpstan.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/valantic/php-cs-fixer-config.svg?style=flat-square)](https://packagist.org/packages/valantic/php-cs-fixer-config)
 
 This package provides standard PHP-CS-Fixer configurations used in projects built by Valantic.
 
