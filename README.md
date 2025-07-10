@@ -26,8 +26,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Valantic\PhpCsFixerConfig\ConfigFactory;
 
 return ConfigFactory::createValanticConfig([
-        'declare_strict_types' => false,
         // Add your custom rules here
+        'declare_strict_types' => false,
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
@@ -36,6 +36,8 @@ return ConfigFactory::createValanticConfig([
     )
     // Enable risky rules (recommended as the ruleset includes risky rules)
     ->setRiskyAllowed(true)
+    // Enable parallel execution
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
 ;
 ```
 
