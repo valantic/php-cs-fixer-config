@@ -1,6 +1,6 @@
 {
     "name": "valantic/php-cs-fixer-config",
-    "description": "Provides a standard php-cs-fixer configuration used in projects built by Valantic.",
+    "description": "Provides a standard php-cs-fixer configuration used in projects built by valantic.",
     "license": "MIT",
     "require": {
         "php": "^8.1"
