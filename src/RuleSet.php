@@ -13,8 +13,8 @@ class RuleSet
     {
         return [
             ...self::addPhpVersionSpecificRules(),
-            '@PER-CS2.0' => true,
-            '@PER-CS2.0:risky' => true,
+            '@PER-CS3.0' => true,
+            '@PER-CS3.0:risky' => true,
             '@Symfony' => true,
             '@Symfony:risky' => true,
             'array_push' => false,
