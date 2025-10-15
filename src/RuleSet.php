@@ -14,8 +14,8 @@ class RuleSet
         return [
             '@autoPHPMigration' => true,
             '@autoPHPMigration:risky' => true,
-            '@PER-CS3.0' => true,
-            '@PER-CS3.0:risky' => true,
+            '@PER-CS' => true,
+            '@PER-CS:risky' => true,
             '@Symfony' => true,
             '@Symfony:risky' => true,
             'array_push' => false,

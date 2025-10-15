@@ -22,8 +22,8 @@ class PhpCsFixerConfigTest extends TestCase
 
         $this->assertArrayHasKey('@autoPHPMigration', $rules);
         $this->assertArrayHasKey('@autoPHPMigration:risky', $rules);
-        $this->assertArrayHasKey('@PER-CS3.0', $rules);
-        $this->assertArrayHasKey('@PER-CS3.0:risky', $rules);
+        $this->assertArrayHasKey('@PER-CS', $rules);
+        $this->assertArrayHasKey('@PER-CS:risky', $rules);
         $this->assertArrayHasKey('@Symfony', $rules);
         $this->assertArrayHasKey('@Symfony:risky', $rules);
         $this->assertArrayHasKey('array_push', $rules);
@@ -43,8 +43,8 @@ class PhpCsFixerConfigTest extends TestCase
         $this->assertNotEmpty($rules);
 
         // Check that basic rules are included
-        $this->assertArrayHasKey('@PER-CS3.0', $rules);
-        $this->assertArrayHasKey('@PER-CS3.0:risky', $rules);
+        $this->assertArrayHasKey('@PER-CS', $rules);
+        $this->assertArrayHasKey('@PER-CS:risky', $rules);
         $this->assertArrayHasKey('@Symfony', $rules);
         $this->assertArrayHasKey('@Symfony:risky', $rules);
 
