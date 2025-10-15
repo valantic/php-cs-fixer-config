@@ -12,7 +12,8 @@ class RuleSet
     public static function getValanticRules(): array
     {
         return [
-            ...self::addPhpVersionSpecificRules(),
+            '@autoPHPMigration' => true,
+            '@autoPHPMigration:risky' => true,
             '@PER-CS3.0' => true,
             '@PER-CS3.0:risky' => true,
             '@Symfony' => true,
@@ -125,43 +126,5 @@ class RuleSet
                 'elements' => ['arguments', 'array_destructuring', 'arrays', 'match', 'parameters'],
             ],
         ];
-    }
-
-    private static function getCurrentPhpVersion(): string
-    {
-        return PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
-    }
-
-    /**
-     * @return array<string, bool|array<string, mixed>>
-     */
-    private static function addPhpVersionSpecificRules(): array
-    {
-        $rules = [];
-        $phpVersion = self::getCurrentPhpVersion();
-
-        $version = (int) str_replace('.', '', $phpVersion);
-
-        $availableRuleSets = \PhpCsFixer\RuleSet\RuleSets::getSetDefinitionNames();
-
-        for ($majorMinor = 80; $majorMinor <= 99; $majorMinor++) {
-            if ($majorMinor > $version) {
-                break;
-            }
-
-            $migrationSet = sprintf('@PHP%dMigration', $majorMinor);
-
-            if (in_array($migrationSet, $availableRuleSets, true)) {
-                $rules[$migrationSet] = true;
-            }
-
-            $riskyMigrationSet = sprintf('%s:risky', $migrationSet);
-
-            if (in_array($riskyMigrationSet, $availableRuleSets, true)) {
-                $rules[$riskyMigrationSet] = true;
-            }
-        }
-
-        return $rules;
     }
 }

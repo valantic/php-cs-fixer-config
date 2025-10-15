@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Valantic\PhpCsFixerConfig\Tests\Unit;
 
 use PhpCsFixer\Config;
-use PhpCsFixer\RuleSet\RuleSets;
 use PHPUnit\Framework\TestCase;
 use Valantic\PhpCsFixerConfig\ConfigFactory;
 use Valantic\PhpCsFixerConfig\RuleSet;
@@ -21,31 +20,14 @@ class PhpCsFixerConfigTest extends TestCase
 
         $this->assertNotEmpty($rules);
 
+        $this->assertArrayHasKey('@autoPHPMigration', $rules);
+        $this->assertArrayHasKey('@autoPHPMigration:risky', $rules);
         $this->assertArrayHasKey('@PER-CS3.0', $rules);
         $this->assertArrayHasKey('@PER-CS3.0:risky', $rules);
         $this->assertArrayHasKey('@Symfony', $rules);
         $this->assertArrayHasKey('@Symfony:risky', $rules);
         $this->assertArrayHasKey('array_push', $rules);
         $this->assertArrayHasKey('yoda_style', $rules);
-
-        // Check that PHP version specific rules are included
-        $phpVersion = PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
-        $version = (int) str_replace('.', '', $phpVersion);
-
-        if ($version >= 80) {
-            $this->assertArrayHasKey('@PHP80Migration', $rules);
-
-            // Check if the risky rule set exists
-            $availableRuleSets = RuleSets::getSetDefinitionNames();
-
-            if (in_array('@PHP80Migration:risky', $availableRuleSets, true)) {
-                $this->assertArrayHasKey('@PHP80Migration:risky', $rules);
-            }
-        }
-
-        if ($version >= 81) {
-            $this->assertArrayHasKey('@PHP81Migration', $rules);
-        }
     }
 
     /**
