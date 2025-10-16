@@ -21,4 +21,12 @@ return RectorConfig::configure()
         strictBooleans: true
     )
     ->withPhpSets()
+    ->withComposerBased(
+        twig: true,
+        doctrine: true,
+        phpunit: true,
+        symfony: true,
+        netteUtils: true,
+        laravel: true
+    )
     ->withAttributesSets(symfony: true, phpunit: true);
